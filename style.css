@@ -1,0 +1,292 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #fbcfe8 0%, #f472b6 50%, #fda4af 100%);
+    --card-bg: rgba(255, 255, 255, 0.92);
+    --text-main: #4a1525;
+    --text-muted: #884358;
+    --accent-pink: #e11d48;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-script: 'Dancing Script', cursive;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* FLOATING HEARTS ANIMATION */
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-hearts i {
+    position: absolute;
+    bottom: -50px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 20px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* APP CONTAINER & SCREENS */
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+}
+
+.screen {
+    display: none;
+    width: 100%;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ENVELOPE STYLING */
+.envelope-wrapper {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.envelope-wrapper:hover {
+    transform: scale(1.05);
+}
+
+.envelope {
+    width: 320px;
+    height: 220px;
+    background: #fff0f3;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(159, 18, 57, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fecdd3;
+}
+
+.envelope-pocket {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 140px;
+    background: #ffe4e6;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+    z-index: 3;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 110px;
+    background: #f43f5e;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    z-index: 4;
+}
+
+.letter-preview {
+    position: absolute;
+    background: #ffffff;
+    width: 280px;
+    height: 160px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: var(--font-script);
+    font-size: 24px;
+    color: var(--accent-pink);
+}
+
+.seal-btn {
+    position: absolute;
+    top: 85px;
+    z-index: 5;
+    background: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-pink);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    font-size: 18px;
+}
+
+.tap-instruction {
+    margin-top: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* LETTER CARD STYLING (#letter) */
+.letter-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    width: 100%;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 25px 50px rgba(159, 18, 57, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+}
+
+.letter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background: #ffe4e6;
+    color: var(--accent-pink);
+    padding: 5px 12px;
+    border-radius: 50px;
+}
+
+.close-letter-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-letter-btn:hover {
+    color: var(--accent-pink);
+}
+
+.letter-title {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+.letter-title span {
+    font-family: var(--font-script);
+    color: var(--accent-pink);
+    font-size: 34px;
+}
+
+.letter-photo {
+    width: 100%;
+    height: 180px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.letter-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.letter-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.letter-signature {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.letter-signature p {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.letter-signature h3 {
+    font-family: var(--font-script);
+    font-size: 26px;
+    color: var(--accent-pink);
+}
+
+.letter-footer-actions {
+    text-align: center;
+}
+
+.love-react-btn {
+    background-color: var(--accent-pink);
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 10px 20px rgba(225, 29, 72, 0.3);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.love-react-interact:hover {
+    transform: scale(1.02);
+}
